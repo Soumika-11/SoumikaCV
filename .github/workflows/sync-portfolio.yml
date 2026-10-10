@@ -1,8 +1,10 @@
 name: Sync CV to portfolio
 
 # Copies the compiled CV into the portfolio repo whenever it changes here,
-# so soumika.dev always serves the latest resume. The portfolio redeploys
-# on its own when the new file lands on its main branch.
+# so soumika.dev always serves the latest resume. It also renders the top of
+# page 1 as public/resume-preview.png, the link-preview image soumika.dev/resume
+# shows on LinkedIn. The portfolio redeploys on its own when the new files land
+# on its main branch.
 #
 # Needs one secret in this repo: PORTFOLIO_DEPLOY_KEY, the private half of
 # a deploy key with write access on Soumika-11/Portfolio.
@@ -49,16 +51,26 @@ jobs:
       - name: Copy CV into portfolio
         run: cp cv/Soumika_Resume.pdf portfolio/public/resume.pdf
 
+      - name: Render link-preview image
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          # 1200x630 is the Open Graph size LinkedIn shows: page 1 scaled to
+          # 1200px wide, cropped to its top 630px (name, contacts, summary).
+          pdftoppm -png -singlefile -f 1 -l 1 -scale-to-x 1200 -scale-to-y -1 \
+            -x 0 -y 0 -W 1200 -H 630 \
+            cv/Soumika_Resume.pdf portfolio/public/resume-preview
+
       - name: Commit and push if changed
         working-directory: portfolio
         run: |
-          if [ -z "$(git status --porcelain -- public/resume.pdf)" ]; then
+          if [ -z "$(git status --porcelain -- public/resume.pdf public/resume-preview.png)" ]; then
             echo "Portfolio already has this CV; nothing to do."
             exit 0
           fi
           # Commit as the CV author so the portfolio host accepts the deploy.
           git config user.name "$(git -C ../cv log -1 --format=%an)"
           git config user.email "$(git -C ../cv log -1 --format=%ae)"
-          git add public/resume.pdf
+          git add public/resume.pdf public/resume-preview.png
           git commit -m "chore: sync resume from SoumikaCV@${GITHUB_SHA::7}"
           git push origin HEAD:main
