@@ -4,9 +4,17 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[left=0.6in,right=0.6in,top=0.45in,bottom=0.4in]{geometry}
 \usepackage[T1]{fontenc}
+% ATS-friendly text layer: real space characters between words, and
+% ligatures such as "fi" copied out as plain letters.
+\input{glyphtounicode}
+\pdfgentounicode=1
+\pdfinterwordspaceon
 \usepackage{caladea}            % Cambria-compatible body font
 \usepackage{carlito}            % Calibri-compatible heading font
 \usepackage{microtype}
+% Carlito's fi/fl ligatures don't map back to plain letters, so ATS would
+% read "Classiﬁcation" as an unknown word; set them as separate letters.
+\DisableLigatures[f]{encoding = *, family = {Crlt-LF,Crlt-TLF,Crlt-OsF,Crlt-TOsF}}
 \emergencystretch=3em
 \usepackage[dvipsnames]{xcolor}
 \usepackage{enumitem}
@@ -71,18 +79,18 @@ Published deep learning researcher and GDG speaker.
 \cvsection{Education}
 \textbf{B.Tech in Computer Science and Engineering (IoT, Cybersecurity and Blockchain
 Technology)} \hfill Expected 2027\\
-Institute of Engineering and Management, Kolkata \hfill GPA: 7.69
+Institute of Engineering and Management, Kolkata \hfill CGPA: 7.69/10
 
 %----------------------------------------------------------------- SKILLS
 \cvsection{Core Skills}
 \begin{itemize}
   \item \textbf{Languages:} Python, JavaScript, TypeScript, Java, C++, SQL
   \item \textbf{Frontend:} React, Next.js, HTML, CSS, Tailwind CSS, Vite
-  \item \textbf{Backend:} Node.js, Express, FastAPI, Django, REST APIs, WebSocket, Microservices, JWT/OAuth
+  \item \textbf{Backend:} Node.js, Express, FastAPI, Flask, Django, REST APIs, WebSocket, Microservices, JWT/OAuth
   \item \textbf{Databases:} PostgreSQL, MySQL, MS SQL Server, MongoDB, Vector DB
-  \item \textbf{DevOps \& Tools:} Git/GitHub, Docker, Linux, Nginx, CI/CD, PM2, Ansible
+  \item \textbf{Cloud \& DevOps:} Google Cloud (GCP), Vercel, Render, Docker, Linux, Nginx, CI/CD, Git/GitHub, Ansible
   \item \textbf{AI/ML:} GenAI, LLMs, RAG, Agentic AI, PyTorch, TensorFlow, OpenCV, NLP, CNN, LSTM, YOLO
-  \item \textbf{CS Fundamentals:} Data Structures \& Algorithms, OOP, DBMS, Operating Systems, Computer Networks
+  \item \textbf{CS Fundamentals:} Data Structures \& Algorithms, OOP, DBMS, Operating Systems, Computer Networks, Unit Testing
 \end{itemize}
 
 %----------------------------------------------------------------- PROJECTS
@@ -90,18 +98,18 @@ Institute of Engineering and Management, Kolkata \hfill GPA: 7.69
 
 \cvsubsection{BONAP - Botanical Scraper \& Plant Portal | \contactlink{https://bonap-frontend.onrender.com/}{Live App}}
 \begin{itemize}
-  \item Built a Node.js scraper and ETL pipeline extracting plant taxonomy, distribution maps and morphology from BONAP,
-        USDA and GBIF, powering a Vite + React plant comparison portal with AI-generated summaries.
+  \item Developed a Node.js scraper and ETL pipeline pulling taxonomy, distribution maps and morphology from BONAP, USDA
+        and GBIF into a Vite + React comparison portal covering \textbf{26K+ species} across 4K+ genera, with AI summaries.
 \end{itemize}
 
 \cvsubsection{Brain Tumor Classification - Ensemble Deep Learning}
 \begin{itemize}
-  \item Built a CNN-LSTM ensemble classifying brain tumors from \textbf{3,200+ MRI scans}, reducing single-model variance.
+  \item Engineered a CNN-LSTM ensemble classifying brain tumors from \textbf{3,200+ MRI scans}, reducing single-model variance.
 \end{itemize}
 
 \cvsubsection{DeepTrust - Degree Verification API | \contactlink{https://github.com/Soumika-11/deeptrust}{GitHub}}
 \begin{itemize}
-  \item Built a degree verification API matching QR payloads to OpenCV/Tesseract OCR text with confidence scores.
+  \item Designed a Flask API verifying degrees via QR codes and OpenCV/Tesseract OCR, supporting PDFs and \textbf{6 image formats}.
 \end{itemize}
 
 %----------------------------------------------------------------- EXPERIENCE
@@ -109,20 +117,19 @@ Institute of Engineering and Management, Kolkata \hfill GPA: 7.69
 
 \cvrole{PepHub}{Software Engineer Intern}{Oct 2025 - Present}{Remote}
 \begin{itemize}
-  \item Delivered multiple client projects, including a Next.js/Node.js customer portal with \textbf{Stripe payments}, a
-        FinTech REST API and a Vite botanical data tool, built on a modular, reusable architecture that reduced bugs.
+  \item Delivered multiple client projects, including a Next.js/Node.js portal with \textbf{Stripe payments} and a FinTech REST API.
   \item Automated production releases with PM2 and SSH, cutting deployment time by \textbf{82\%} (45 min to 8 min).
 \end{itemize}
 
 \cvrole{IEDC, Dept. of CSE, UEM Kolkata}{Research Engineer Intern}{Dec 2024 - Dec 2025}{Hybrid}
 \begin{itemize}
-  \item Cut HPC cluster setup by \textbf{95\%} (8 hrs to 22 min) with Ansible; built YOLO/OpenCV face detection at \textbf{96\% accuracy}.
+  \item Reduced HPC cluster setup \textbf{95\%} (8 hrs to 22 min) via Ansible; built YOLO/OpenCV face detection at \textbf{96\%} accuracy.
 \end{itemize}
 
 \cvrole{Cardiacrhythm}{Software Engineer Intern}{Jun 2025 - Sep 2025}{Remote}
 \begin{itemize}
-  \item Built WebSocket real-time ECG streaming for \textbf{200+ concurrent streams}, reducing latency by \textbf{90\%} (1.8s to 180ms);
-        shrank payloads by \textbf{75\%} (8MB to 2MB) and added auto-reconnection to prevent data loss across \textbf{15K+ daily sessions}.
+  \item Architected WebSocket real-time ECG streaming for \textbf{200+ concurrent streams}, reducing latency by \textbf{90\%} (1.8s to 180ms);
+        shrank payloads \textbf{75\%} (8MB to 2MB); added auto-reconnect, preventing data loss in \textbf{15K+ daily sessions}.
 \end{itemize}
 
 \cvrole{RevMaxx}{Software Engineer Intern}{Jan 2025 - Jun 2025}{Onsite}
@@ -134,7 +141,8 @@ Institute of Engineering and Management, Kolkata \hfill GPA: 7.69
 %----------------------------------------------------------------- PUBLICATIONS & LEADERSHIP
 \cvsection{Publications \& Leadership}
 \begin{itemize}
-  \item \textbf{Brain Tumor Detection using CNN-LSTM}, AISC Conference (improved ensemble-learning performance) | \contactlink{https://www.linkedin.com/in/soumikadas/overlay/1768775586821/single-media-viewer/?profileId=ACoAADjotgUBcxQ5xZJAVK0yId5IZyYXuEPqmJo}{LinkedIn}
+  \item \textbf{Enhancing Brain Tumor Diagnosis with Ensemble Deep Learning Technique for Improved Accuracy},
+        AISC 2025 (Springer) | \contactlink{https://www.linkedin.com/in/soumikadas/overlay/1768775586821/single-media-viewer/?profileId=ACoAADjotgUBcxQ5xZJAVK0yId5IZyYXuEPqmJo}{LinkedIn}
   \item \textbf{Cloud Lead \& Speaker},
         \href{https://gdg.community.dev/gdg-on-campus-university-of-engineering-management-kolkata-india/}{GDG on Campus UEM Kolkata}
         (2025 - 26): led the Cloud domain, conducted Google Cloud Study Jams, spoke at ``Tech and Adda''
