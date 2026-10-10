@@ -32,21 +32,27 @@
 
 \newcommand{\heading}[1]{{\carlito #1}}
 
-% Large blue section title, e.g. "Professional Summary"
+% Large blue section title, e.g. "Education"
 \newcommand{\cvsection}[1]{%
-  \par\vspace{7pt}%
-  {\heading{\color{sectioncolor}\large\bfseries #1}}\par\vspace{1pt}}
+  \par\vspace{10pt}%
+  {\heading{\color{sectioncolor}\large\bfseries #1}}\par\vspace{2pt}}
 
-% Smaller lighter-blue heading for roles
+% Smaller lighter-blue heading for projects
 \newcommand{\cvsubsection}[1]{%
-  \par\vspace{4pt}%
+  \par\vspace{5pt}%
   {\heading{\color{subcolor}\bfseries #1}}\par}
+
+% Bullet list whose lines all end flush with the right margin, including each
+% item's last line, so experience and project bullets form a straight edge
+\newenvironment{cvbullets}{\begin{itemize}\setlength{\parfillskip}{0pt}}{\end{itemize}}
 
 % Clickable contact detail, shown in blue and underlined so it reads as a link
 \newcommand{\contactlink}[2]{\href{#1}{\color{sectioncolor}\underline{#2}}}
 
-% Company - Role (Dates) | Work mode
-\newcommand{\cvrole}[4]{\cvsubsection{#1 - #2 (#3) | #4}}
+% Role, Company in bold on the left; dates (bold, blue) and work mode on the right
+\newcommand{\cvrole}[4]{%
+  \par\vspace{5pt}%
+  \textbf{#2, #1} \hfill {\color{sectioncolor}\textbf{#3}} | #4\par}
 
 \setlist[itemize]{label=$\bullet$, leftmargin=1.6em, labelsep=0.7em,
   itemsep=2pt, topsep=2pt, parsep=0pt}
@@ -69,12 +75,6 @@
 \textbf{GitHub:} \contactlink{https://github.com/Soumika-11}{github.com/Soumika-11} \quad
 \textbf{Portfolio:} \contactlink{https://www.soumika.dev/}{soumika.dev}\par
 
-%----------------------------------------------------------------- SUMMARY
-\cvsection{Professional Summary}
-Computer Science undergraduate and Software Engineer with four internships across FinTech,
-HealthTech and research, building full-stack platforms, real-time systems and AI services.
-Published deep learning researcher and GDG speaker.
-
 %----------------------------------------------------------------- EDUCATION
 \cvsection{Education}
 \textbf{B.Tech in Computer Science and Engineering (IoT, Cybersecurity and Blockchain
@@ -93,50 +93,51 @@ Institute of Engineering and Management, Kolkata \hfill CGPA: 7.69/10
   \item \textbf{CS Fundamentals:} Data Structures \& Algorithms, OOP, DBMS, Operating Systems, Computer Networks, Unit Testing
 \end{itemize}
 
-%----------------------------------------------------------------- PROJECTS
-\cvsection{Projects}
-
-\cvsubsection{BONAP - Botanical Scraper \& Plant Portal | \contactlink{https://bonap-frontend.onrender.com/}{Live App}}
-\begin{itemize}
-  \item Developed a Node.js scraper and ETL pipeline pulling taxonomy, distribution maps and morphology from BONAP, USDA
-        and GBIF into a Vite + React comparison portal covering \textbf{26K+ species} across 4K+ genera, with AI summaries.
-\end{itemize}
-
-\cvsubsection{Brain Tumor Classification - Ensemble Deep Learning}
-\begin{itemize}
-  \item Engineered a CNN-LSTM ensemble classifying brain tumors from \textbf{3,200+ MRI scans}, reducing single-model variance.
-\end{itemize}
-
-\cvsubsection{DeepTrust - Degree Verification API | \contactlink{https://github.com/Soumika-11/deeptrust}{GitHub}}
-\begin{itemize}
-  \item Designed a Flask API verifying degrees via QR codes and OpenCV/Tesseract OCR, supporting PDFs and \textbf{6 image formats}.
-\end{itemize}
-
 %----------------------------------------------------------------- EXPERIENCE
 \cvsection{Internship Experience}
 
 \cvrole{PepHub}{Software Engineer Intern}{Oct 2025 - Present}{Remote}
-\begin{itemize}
+\begin{cvbullets}
   \item Delivered multiple client projects, including a Next.js/Node.js portal with \textbf{Stripe payments} and a FinTech REST API.
-  \item Automated production releases with PM2 and SSH, cutting deployment time by \textbf{82\%} (45 min to 8 min).
-\end{itemize}
+  \item Automated production releases for client apps using PM2 and SSH, cutting deployment time by \textbf{82\%} (45 min to 8 min).
+\end{cvbullets}
 
 \cvrole{IEDC, Dept. of CSE, UEM Kolkata}{Research Engineer Intern}{Dec 2024 - Dec 2025}{Hybrid}
-\begin{itemize}
-  \item Reduced HPC cluster setup \textbf{95\%} (8 hrs to 22 min) via Ansible; built YOLO/OpenCV face detection at \textbf{96\%} accuracy.
-\end{itemize}
+\begin{cvbullets}
+  \item Reduced ``Satyameba'' HPC cluster setup time by \textbf{95\%} (8 hrs to 22 min) by automating provisioning with Ansible.
+  \item Implemented real-time YOLO/OpenCV face detection at \textbf{96\% accuracy} and 45 FPS across 8 concurrent video streams.
+\end{cvbullets}
 
 \cvrole{Cardiacrhythm}{Software Engineer Intern}{Jun 2025 - Sep 2025}{Remote}
-\begin{itemize}
-  \item Architected WebSocket real-time ECG streaming for \textbf{200+ concurrent streams}, reducing latency by \textbf{90\%} (1.8s to 180ms);
-        shrank payloads \textbf{75\%} (8MB to 2MB); added auto-reconnect, preventing data loss in \textbf{15K+ daily sessions}.
-\end{itemize}
+\begin{cvbullets}
+  \item Architected real-time WebSocket ECG streaming for \textbf{200+ live streams}, cutting latency by \textbf{90\%} (1.8s to 180ms).
+  \item Shrank payloads by \textbf{75\%} (8MB to 2MB) and added auto-reconnect, preventing data loss in \textbf{15K+ daily sessions}.
+\end{cvbullets}
 
 \cvrole{RevMaxx}{Software Engineer Intern}{Jan 2025 - Jun 2025}{Onsite}
-\begin{itemize}
-  \item Built a \textbf{HIPAA-compliant} transcription backend with SNOMED CT/ICD-10 coding and an NLP entity-extraction service
-        across \textbf{50K+ clinical notes}; added retry logic and circuit breakers, cutting failures by \textbf{over 90\%} (12/week to under 1).
-\end{itemize}
+\begin{cvbullets}
+  \item Built a \textbf{HIPAA-compliant} transcription backend with SNOMED CT/ICD-10 coding and NLP across \textbf{50K+ clinical notes}.
+  \item Added retry logic and circuit breakers to backend services, cutting service failures by \textbf{over 90\%} (12/week to under 1).
+\end{cvbullets}
+
+%----------------------------------------------------------------- PROJECTS
+\cvsection{Projects}
+
+\cvsubsection{BONAP - Botanical Scraper \& Plant Portal | \contactlink{https://bonap-frontend.onrender.com/}{Live App}}
+\begin{cvbullets}
+  \item Developed a Node.js scraper and ETL pipeline pulling taxonomy, distribution maps and morphology from BONAP, USDA
+        and GBIF into a Vite + React comparison portal covering \textbf{26K+ species} across 4K+ genera, with AI summaries.
+\end{cvbullets}
+
+\cvsubsection{Brain Tumor Classification - Ensemble Deep Learning}
+\begin{cvbullets}
+  \item Engineered a CNN-LSTM ensemble classifying brain tumors from \textbf{3,200+ MRI scans}, reducing single-model variance.
+\end{cvbullets}
+
+\cvsubsection{DeepTrust - Degree Verification API | \contactlink{https://github.com/Soumika-11/deeptrust}{GitHub}}
+\begin{cvbullets}
+  \item Designed a Flask API verifying degrees via QR codes and OpenCV/Tesseract OCR, supporting PDFs and \textbf{6 image formats}.
+\end{cvbullets}
 
 %----------------------------------------------------------------- PUBLICATIONS & LEADERSHIP
 \cvsection{Publications \& Leadership}
