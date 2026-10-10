@@ -1,0 +1,144 @@
+% Soumika Das - one-page CV in the classic "Word-style" layout:
+% left-aligned name over a blue rule, labelled contact lines,
+% blue section headings and plain bullet lists.
+\documentclass[10pt,a4paper]{article}
+\usepackage[left=0.6in,right=0.6in,top=0.45in,bottom=0.4in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{caladea}            % Cambria-compatible body font
+\usepackage{carlito}            % Calibri-compatible heading font
+\usepackage{microtype}
+\emergencystretch=3em
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{namecolor}{HTML}{1F3864}
+\definecolor{rulecolor}{HTML}{4F81BD}
+\definecolor{sectioncolor}{HTML}{4472C4}
+\definecolor{subcolor}{HTML}{5B8BD0}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{1.15}
+
+\newcommand{\heading}[1]{{\carlito #1}}
+
+% Large blue section title, e.g. "Professional Summary"
+\newcommand{\cvsection}[1]{%
+  \par\vspace{7pt}%
+  {\heading{\color{sectioncolor}\large\bfseries #1}}\par\vspace{1pt}}
+
+% Smaller lighter-blue heading for roles
+\newcommand{\cvsubsection}[1]{%
+  \par\vspace{4pt}%
+  {\heading{\color{subcolor}\bfseries #1}}\par}
+
+% Clickable contact detail, shown in blue and underlined so it reads as a link
+\newcommand{\contactlink}[2]{\href{#1}{\color{sectioncolor}\underline{#2}}}
+
+% Company - Role (Dates) | Work mode
+\newcommand{\cvrole}[4]{\cvsubsection{#1 - #2 (#3) | #4}}
+
+\setlist[itemize]{label=$\bullet$, leftmargin=1.6em, labelsep=0.7em,
+  itemsep=2pt, topsep=2pt, parsep=0pt}
+
+\begin{document}
+
+%----------------------------------------------------------------- HEADER
+{\heading{\color{namecolor}\fontsize{22}{26}\selectfont SOUMIKA DAS}}\par
+\vspace{1pt}
+{\color{rulecolor}\rule{\textwidth}{0.8pt}}\par
+\vspace{4pt}
+
+{\bfseries Software Engineer | Full-Stack \& Backend Development | AI/ML}\par
+\vspace{3pt}
+
+\textbf{Phone:} \contactlink{tel:+918617233878}{+91 8617233878} \quad
+\textbf{Email:} \contactlink{mailto:dassoumika11@gmail.com}{dassoumika11@gmail.com} \quad
+\textbf{Location:} Bangalore, India\par
+\textbf{LinkedIn:} \contactlink{https://www.linkedin.com/in/soumikadas/}{linkedin.com/in/soumikadas} \quad
+\textbf{GitHub:} \contactlink{https://github.com/Soumika-11}{github.com/Soumika-11} \quad
+\textbf{Portfolio:} \contactlink{https://www.soumika.dev/}{soumika.dev}\par
+
+%----------------------------------------------------------------- SUMMARY
+\cvsection{Professional Summary}
+Computer Science undergraduate and Software Engineer with four internships across FinTech,
+HealthTech and research, building full-stack platforms, real-time systems and AI services.
+Published deep learning researcher and GDG speaker.
+
+%----------------------------------------------------------------- EDUCATION
+\cvsection{Education}
+\textbf{B.Tech in Computer Science and Engineering (IoT, Cybersecurity and Blockchain
+Technology)} \hfill Expected 2027\\
+Institute of Engineering and Management, Kolkata \hfill GPA: 7.69
+
+%----------------------------------------------------------------- SKILLS
+\cvsection{Core Skills}
+\begin{itemize}
+  \item \textbf{Languages:} Python, JavaScript, TypeScript, Java, C++, SQL
+  \item \textbf{Frontend:} React, Next.js, HTML, CSS, Tailwind CSS, Vite
+  \item \textbf{Backend:} Node.js, Express, FastAPI, Django, REST APIs, WebSocket, Microservices, JWT/OAuth
+  \item \textbf{Databases:} PostgreSQL, MySQL, MS SQL Server, MongoDB, Vector DB
+  \item \textbf{DevOps \& Tools:} Git/GitHub, Docker, Linux, Nginx, CI/CD, PM2, Ansible
+  \item \textbf{AI/ML:} GenAI, LLMs, RAG, Agentic AI, PyTorch, TensorFlow, OpenCV, NLP, CNN, LSTM, YOLO
+  \item \textbf{CS Fundamentals:} Data Structures \& Algorithms, OOP, DBMS, Operating Systems, Computer Networks
+\end{itemize}
+
+%----------------------------------------------------------------- PROJECTS
+\cvsection{Projects}
+
+\cvsubsection{BONAP - Botanical Scraper \& Plant Portal | \contactlink{https://bonap-frontend.onrender.com/}{Live App}}
+\begin{itemize}
+  \item Built a Node.js scraper and ETL pipeline extracting plant taxonomy, distribution maps and morphology from BONAP,
+        USDA and GBIF, powering a Vite + React plant comparison portal with AI-generated summaries.
+\end{itemize}
+
+\cvsubsection{Brain Tumor Classification - Ensemble Deep Learning}
+\begin{itemize}
+  \item Built a CNN-LSTM ensemble classifying brain tumors from \textbf{3,200+ MRI scans}, reducing single-model variance.
+\end{itemize}
+
+\cvsubsection{DeepTrust - Degree Verification API | \contactlink{https://github.com/Soumika-11/deeptrust}{GitHub}}
+\begin{itemize}
+  \item Built a degree verification API matching QR payloads to OpenCV/Tesseract OCR text with confidence scores.
+\end{itemize}
+
+%----------------------------------------------------------------- EXPERIENCE
+\cvsection{Internship Experience}
+
+\cvrole{PepHub}{Software Engineer Intern}{Oct 2025 - Present}{Remote}
+\begin{itemize}
+  \item Delivered multiple client projects, including a Next.js/Node.js customer portal with \textbf{Stripe payments}, a
+        FinTech REST API and a Vite botanical data tool, built on a modular, reusable architecture that reduced bugs.
+  \item Automated production releases with PM2 and SSH, cutting deployment time by \textbf{82\%} (45 min to 8 min).
+\end{itemize}
+
+\cvrole{IEDC, Dept. of CSE, UEM Kolkata}{Research Engineer Intern}{Dec 2024 - Dec 2025}{Hybrid}
+\begin{itemize}
+  \item Cut HPC cluster setup by \textbf{95\%} (8 hrs to 22 min) with Ansible; built YOLO/OpenCV face detection at \textbf{96\% accuracy}.
+\end{itemize}
+
+\cvrole{Cardiacrhythm}{Software Engineer Intern}{Jun 2025 - Sep 2025}{Remote}
+\begin{itemize}
+  \item Built WebSocket real-time ECG streaming for \textbf{200+ concurrent streams}, reducing latency by \textbf{90\%} (1.8s to 180ms);
+        shrank payloads by \textbf{75\%} (8MB to 2MB) and added auto-reconnection to prevent data loss across \textbf{15K+ daily sessions}.
+\end{itemize}
+
+\cvrole{RevMaxx}{Software Engineer Intern}{Jan 2025 - Jun 2025}{Onsite}
+\begin{itemize}
+  \item Built a \textbf{HIPAA-compliant} transcription backend with SNOMED CT/ICD-10 coding and an NLP entity-extraction service
+        across \textbf{50K+ clinical notes}; added retry logic and circuit breakers, cutting failures by \textbf{over 90\%} (12/week to under 1).
+\end{itemize}
+
+%----------------------------------------------------------------- PUBLICATIONS & LEADERSHIP
+\cvsection{Publications \& Leadership}
+\begin{itemize}
+  \item \textbf{Brain Tumor Detection using CNN-LSTM}, AISC Conference (improved ensemble-learning performance) | \contactlink{https://www.linkedin.com/in/soumikadas/overlay/1768775586821/single-media-viewer/?profileId=ACoAADjotgUBcxQ5xZJAVK0yId5IZyYXuEPqmJo}{LinkedIn}
+  \item \textbf{Cloud Lead \& Speaker},
+        \href{https://gdg.community.dev/gdg-on-campus-university-of-engineering-management-kolkata-india/}{GDG on Campus UEM Kolkata}
+        (2025 - 26): led the Cloud domain, conducted Google Cloud Study Jams, spoke at ``Tech and Adda''
+        and co-organized the ``StackUp!!'' workshop. | \contactlink{https://www.linkedin.com/feed/update/urn:li:activity:7462911880844681216/}{LinkedIn}
+\end{itemize}
+
+\end{document}

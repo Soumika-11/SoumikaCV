@@ -1,0 +1,64 @@
+name: Sync CV to portfolio
+
+# Copies the compiled CV into the portfolio repo whenever it changes here,
+# so soumika.dev always serves the latest resume. The portfolio redeploys
+# on its own when the new file lands on its main branch.
+#
+# Needs one secret in this repo: PORTFOLIO_DEPLOY_KEY, the private half of
+# a deploy key with write access on Soumika-11/Portfolio.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - resume_faangpath.pdf
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-portfolio
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      HAS_DEPLOY_KEY: ${{ secrets.PORTFOLIO_DEPLOY_KEY != '' }}
+    steps:
+      - name: Require deploy key
+        if: env.HAS_DEPLOY_KEY != 'true'
+        run: |
+          echo "::error::PORTFOLIO_DEPLOY_KEY secret is not set, so the CV cannot be pushed to the portfolio."
+          exit 1
+
+      - name: Check out CV
+        uses: actions/checkout@v7
+        with:
+          path: cv
+
+      - name: Check out portfolio
+        uses: actions/checkout@v7
+        with:
+          repository: Soumika-11/Portfolio
+          ref: main
+          ssh-key: ${{ secrets.PORTFOLIO_DEPLOY_KEY }}
+          path: portfolio
+
+      - name: Copy CV into portfolio
+        run: cp cv/resume_faangpath.pdf portfolio/public/resume.pdf
+
+      - name: Commit and push if changed
+        working-directory: portfolio
+        run: |
+          if [ -z "$(git status --porcelain -- public/resume.pdf)" ]; then
+            echo "Portfolio already has this CV; nothing to do."
+            exit 0
+          fi
+          # Commit as the CV author so the portfolio host accepts the deploy.
+          git config user.name "$(git -C ../cv log -1 --format=%an)"
+          git config user.email "$(git -C ../cv log -1 --format=%ae)"
+          git add public/resume.pdf
+          git commit -m "chore: sync resume from SoumikaCV@${GITHUB_SHA::7}"
+          git push origin HEAD:main
