@@ -11,7 +11,7 @@ on:
   push:
     branches: [main]
     paths:
-      - resume_faangpath.pdf
+      - Soumika_Resume.pdf
   workflow_dispatch:
 
 permissions:
@@ -47,7 +47,7 @@ jobs:
           path: portfolio
 
       - name: Copy CV into portfolio
-        run: cp cv/resume_faangpath.pdf portfolio/public/resume.pdf
+        run: cp cv/Soumika_Resume.pdf portfolio/public/resume.pdf
 
       - name: Commit and push if changed
         working-directory: portfolio
